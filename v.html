@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pizza</title>
+    <link rel="stylesheet" href="style.css">
+   <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+    <div class="container "  x-data="{ showcart: false,
+                                       showmessage: false,
+                                       showmakepayment: true,
+                                       showPaymentMessage: false,
+                                       small : 0.0,
+                                       medium : 0.0,
+                                       large : 0.0,
+                                       total_cost: 0.0,
+                                       amount: '',
+
+                                       PaymentMessage: '',
+
+                                       smallBuy() { 
+                                           this.small += 49.00;
+                                       },
+                                       
+                                       smallReduce() {
+                                           if (this.small > 0){
+                                               this.small -= 49.00;
+                                           }
+                                       },
+
+                                      mediumBuy() { 
+                                        this.medium += 89.00;
+                                          },
+                                    
+                                      mediumReduce() {
+                                        if (this.medium > 0){
+                                            this.medium -= 89.00;
+                                        }
+                                       },
+
+                                       largeBuy() { 
+                                        this.large += 130.00;
+                                       },
+                                    
+                                       largeReduce() {
+                                        if (this.large > 0){
+                                            this.large -= 130.00;
+                                        }
+                                       },
+
+                                       Total_cost() {
+                                           return this.small + this.medium + this.large;
+                                       },
+
+                                       makepayment(){
+                                           if (!this.amount) {
+                                               return this.PaymentMessage ='No amount entered!';
+                                           }
+
+                                           if (this.amount >= this.Total_cost() ) {
+                                               return this.PaymentMessage ='Payment successful!';
+
+                                           }else{
+                                               return this.PaymentMessage ='Payment failed';
+                                           }
+                                       },
+
+                                       rest(){
+                                        setTimeout(() =>{
+                                            this.showcart= false;
+                                            this.showmessage= false;
+                                            this.showmakepayment= true;
+                                            this.showPaymentMessage= false;
+                                            this.clear()
+                                           },5000);
+                                       },
+
+                                       clear(){
+                                        this.small = 0.0;
+                                        this.medium = 0.0;
+                                        this.large = 0.0;
+                                        this.total_cost= 0.0;
+                                        this.amount= '';
+                                       }
+
+
+                                    }">
+ 
+    <div class="front-cart">
+
+       
+        <div class="Head">
+            <h1>Pizza Cart Using AlpineJS</h1>
+        </div>
+
+        <div class="OpenBtnCart">
+            <button x-on:click="showcart = true; ">Open Cart </button>
+        </div>
+    </div>
+
+
+    <div class="End-cart" x-show="showcart" >
+        <div class="End-cart1" >
+            <button class="CloseBtn" x-on:click="showcart = false; " >close cart <img src="image@cart.png" width="30" alt=""></button>
+            <div>Cart <img src="image@cart.png" width="30" alt=""></div>
+    
+            <table>
+                
+                <tr x-show="small > 0">
+                    <td>Small</td>
+                    <th>
+                        <button class="btn"x-on:click="smallBuy() ">+</button>
+                        <button x-on:click="smallReduce() ">-</button>
+                    </th>
+                    
+                    <th>
+                        R<span x-text="small"></span>
+                    </th>
+                   
+                    </tr>
+                
+                <tr x-show="medium > 0">
+                    <td>Medium</td>
+                    <th>
+                        <button x-on:click="mediumBuy() ">+</button>
+                        <button x-on:click="mediumReduce() ">-</button>
+                    </th>
+                    <th>
+                        R<span x-text="medium"></span>
+                    </th>
+                </tr>
+                
+              
+                <tr x-show="large > 0">
+                    <td>Large</td>
+                    <th>
+                        <button x-on:click="largeBuy() ">+</button>
+                        <button x-on:click="largeReduce() ">-</button>
+                    </th>
+                    <th>
+                        R<span x-text="large"></span>
+                    </th>
+                </tr>
+              
+                <tr x-show="Total_cost() > 0">
+                    <td colspan="2">Total cost</td>
+                    <th>
+                        R<span x-text="Total_cost().toFixed(2)"></span>
+                    </th>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                       <div class="paymentMessage" style="background-color: blue;" x-text="PaymentMessage" x-show="showPaymentMessage"></div>
+                       <div x-show="showmessage">
+                        <label for="amount" style="text-align: center;"> Payment amount:</label>
+                        <input type="text" x-model="amount" id="amount" placeholder="Enter amount">
+                        <span>
+                         <button style="color:blue" x-on:click="makepayment(),showPaymentMessage = true,showcart = true, rest()">Pay</button>
+                        </span>
+                       </div>
+                       </td>
+                    <th>
+                        <button style="color:blue" x-show="showmakepayment"  x-on:click=" showmessage = true, showmakepayment = false"> Make payment<img src="image@cart.png" width="30" alt=""></button>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="pizzas">
+    <div class="pizza-small_pizza">
+        
+   <img src ="https://www.bing.com/th?id=OIP.ZGk16vc2wlDVpji2M-SUrAHaEK&w=333&h=187&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" width="18%">
+        <h1>Small Pizza</h1>
+        <h3>R49.00</h3>
+        <button x-on:click="smallBuy()" >Buy</button>
+        <div>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo</div>
+    </div>
+    
+    <div class="pizza-medium_pizza">
+        <img src="https://www.bing.com/th?id=OIP.a-UewhYPhQNOEYSHTnGkuAHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"  width="18%">
+        <h1>Medium Pizza</h1>
+        <h3>R89.00</h3>
+        <button x-on:click="mediumBuy()" >Buy</button>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt a velit veritatis nemo, molestiae officia at ut dolorem adipisci excepturi mollitia veniam doloribus voluptates, quaerat eligendi! Distinctio molestias quas ullam eos nobis fugiat quisquam, consequatur eum, impedit voluptatem, nihil praesentium.</p>
+    </div>
+        
+
+    <div class="paizza-large_pizza">
+        <img src="https://www.bing.com/th?id=OIP.qQ9CCtjHHDqs8o-H3j8XCAHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"  width="18%">
+
+        <h1>Large Pizza</h1>
+        <h3>R130.00</h3>
+        <button x-on:click="largeBuy()" >Buy</button>
+        <div>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo</div>
+    </div>
+    </div>
+
+   
+</div>
+    
+</body>
+</html>

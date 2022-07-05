@@ -1,0 +1,44 @@
+.front-cart{
+    background-color: aqua;
+
+    
+}
+.pizzas{
+    background-color:lightblue;
+    display: flex;
+}
+.paizza-large_pizza{
+    background-color: brown;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin:0.5em;
+
+}
+.pizza-medium_pizza{
+    background-color:lightcoral;
+    border-radius: 1em;
+    padding: 1em;
+    margin:1em;
+}
+.pizza-small_pizza{
+    background-color:lightcoral;
+    border-radius: 1em;
+    padding: 1em;
+    margin:1em;
+}
+h1{
+text-align: center;
+}
+.btn{
+    background-color: blues;
+}
+@media(max-width:768px){
+    .pizzas{
+        background-color:lightgreen;
+        display: block;
+    }
+}
+h3{
+    text-align: center;
+}
+
